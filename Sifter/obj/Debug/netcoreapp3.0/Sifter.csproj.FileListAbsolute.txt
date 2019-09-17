@@ -1,0 +1,8 @@
+C:\Users\pepij\repos\Sifter\Sifter\bin\Debug\netcoreapp3.0\Sifter.deps.json
+C:\Users\pepij\repos\Sifter\Sifter\bin\Debug\netcoreapp3.0\Sifter.dll
+C:\Users\pepij\repos\Sifter\Sifter\bin\Debug\netcoreapp3.0\Sifter.pdb
+C:\Users\pepij\repos\Sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.csprojAssemblyReference.cache
+C:\Users\pepij\repos\Sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.AssemblyInfoInputs.cache
+C:\Users\pepij\repos\Sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.AssemblyInfo.cs
+C:\Users\pepij\repos\Sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.dll
+C:\Users\pepij\repos\Sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.pdb
