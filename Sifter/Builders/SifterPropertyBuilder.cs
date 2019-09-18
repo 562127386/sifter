@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using Sifter.Types;
 
 
-namespace Sifter {
+namespace Sifter.Builders {
 
-    public class SifterPropertyBuilder<TClass> {
+    internal class SifterPropertyBuilder<TClass> : ISifterPropertyBuilder<TClass> {
 
         internal readonly SifterPropertyInfoMap map = new SifterPropertyInfoMap();
 
@@ -13,21 +14,21 @@ namespace Sifter {
 
 
 
-        public SifterPropertyBuilder<TClass> CanFilter<TProp>(Expression<Func<TClass, TProp>> expression) {
+        public ISifterPropertyBuilder<TClass> CanFilter<TProp>(Expression<Func<TClass, TProp>> expression) {
             addToMap(expression, true, false);
             return this;
         }
 
 
 
-        public SifterPropertyBuilder<TClass> CanSort<TProp>(Expression<Func<TClass, TProp>> expression) {
+        public ISifterPropertyBuilder<TClass> CanSort<TProp>(Expression<Func<TClass, TProp>> expression) {
             addToMap(expression, false, true);
             return this;
         }
 
 
 
-        public SifterPropertyBuilder<TClass> CanFilterAndSort<TProp>(Expression<Func<TClass, TProp>> expression) {
+        public ISifterPropertyBuilder<TClass> CanFilterAndSort<TProp>(Expression<Func<TClass, TProp>> expression) {
             addToMap(expression, true, true);
             return this;
         }

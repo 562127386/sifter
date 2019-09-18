@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Sifter.Types;
 
 
-namespace Sifter {
+namespace Sifter.Builders {
 
-    public class SifterBuilder {
+    internal class SifterBuilder : ISifterBuilder {
 
         private readonly SifterMap sifterMap = new SifterMap();
         private readonly HashSet<Type> indexedTypes = new HashSet<Type>();
@@ -80,7 +81,7 @@ namespace Sifter {
 
 
 
-        public SifterPropertyBuilder<T> Properties<T>() {
+        public ISifterPropertyBuilder<T> Properties<T>() {
             var propertyBuilder = new SifterPropertyBuilder<T>();
             sifterMap.Add(typeof(T), propertyBuilder.map);
 

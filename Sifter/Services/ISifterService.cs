@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 
 
-namespace Sifter {
+namespace Sifter.Services {
 
     public interface ISifterService {
 

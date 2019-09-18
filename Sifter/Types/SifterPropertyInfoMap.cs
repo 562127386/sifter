@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using JetBrains.Annotations;
 
 
-namespace Sifter {
+namespace Sifter.Types {
 
     internal class SifterPropertyInfoMap : Dictionary<string, SifterInfo> {
 

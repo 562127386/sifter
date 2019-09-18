@@ -1,21 +1,42 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using JetBrains.Annotations;
+using Sifter.Extensions;
 
 
-namespace Sifter {
+namespace Sifter.Terms {
 
-    internal static class QueryableExtensions {
+    internal class SortTerm {
 
-        public static IQueryable<TEntity> ApplySort<TEntity>(
-            this IQueryable<TEntity> query,
+        [CanBeNull]
+        public string Identifier { get; }
+
+        public bool IsDescending { get; }
+
+
+
+        public SortTerm(string str) {
+            if (str.StartsWith('-')) {
+                Identifier = str.Substring(1);
+                IsDescending = true;
+            }
+            else {
+                Identifier = str;
+                IsDescending = false;
+            }
+        }
+
+
+
+        public IQueryable<TEntity> ApplySort<TEntity>(
+            IQueryable<TEntity> query,
             string identifier,
             PropertyInfo propertyInfo,
-            SortTerm sortTerm,
             bool isNestedSort
         ) {
             //TODO maybe expression switch this
-            var command = sortTerm.IsDescending ? isNestedSort ? "ThenByDescending" : "OrderByDescending" :
+            var command = IsDescending ? isNestedSort ? "ThenByDescending" : "OrderByDescending" :
                 isNestedSort ? "ThenBy" : "OrderBy";
             var type = typeof(TEntity);
             var parameter = Expression.Parameter(type);
@@ -25,9 +46,7 @@ namespace Sifter {
             if (identifier.IsNested()) {
                 var splits = identifier.Split('.').SkipLast(1);
 
-                foreach (var split in splits) {
-                    propertyValue = Expression.PropertyOrField(propertyValue, split);
-                }
+                propertyValue = splits.Aggregate(propertyValue, Expression.PropertyOrField);
             }
 
             var memberAccess = Expression.MakeMemberAccess(propertyValue, propertyInfo);

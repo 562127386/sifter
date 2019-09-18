@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.Serialization;
 using JetBrains.Annotations;
+using Sifter.Builders;
+using Sifter.Extensions;
+using Sifter.Terms;
+using Sifter.Types;
 
 
-namespace Sifter {
+namespace Sifter.Services {
 
+//TODO make internal and only expose interface if possible
     public abstract class SifterService : ISifterService {
 
         private readonly SifterMap map;
@@ -24,22 +27,24 @@ namespace Sifter {
 
 
 
-        protected abstract void onSifterBuild(SifterBuilder builder);
+        protected abstract void onSifterBuild(ISifterBuilder builder);
 
 
 
         public virtual IQueryable<T> Sift<T>(IQueryable<T> query, SifterModel model) {
             query = applySortTerms(query, model.GetSortTerms());
+//            query = applyFilterTerms(query,)
 
             return query;
         }
 
-
+//TODO change all internal modifiers to public, and then make classes internal
 
 //TODO add option for max sort depth
 //TODO check if circular dependencies work
         private IQueryable<T> applySortTerms<T>(IQueryable<T> query, IEnumerable<SortTerm> sortTerms) {
             var isNestedSort = false;
+
             foreach (var sortTerm in sortTerms) {
                 var identifier = sortTerm.Identifier;
                 var sifterInfo = getSifterInfo<T>(identifier);
@@ -48,7 +53,7 @@ namespace Sifter {
                     continue;
                 }
 
-                query = query.ApplySort(identifier, sifterInfo.PropertyInfo, sortTerm, isNestedSort);
+                query = sortTerm.ApplySort(query, identifier, sifterInfo.PropertyInfo, isNestedSort);
                 isNestedSort = true;
             }
 
@@ -59,6 +64,7 @@ namespace Sifter {
 
         [CanBeNull]
         private SifterInfo getSifterInfo<T>(string identifier) {
+            //TODO identifier isn't checked for null here
             var root = map.Get(typeof(T));
             var propertyName = identifier;
 

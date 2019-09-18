@@ -1,0 +1,28 @@
+﻿namespace Sifter {
+
+    internal enum Operator {
+
+        EQUAL,
+        NOT_EQUAL,
+        GREATER_THAN,
+        LESS_THAN,
+        GREATER_OR_EQUAL_TO,
+        LESS_OR_EQUAL_TO,
+        EQUAL_CASE_INSENSITIVE,
+        NOT_EQUAL_CASE_INSENSITIVE,
+        CONTAINS,
+        DOES_NOT_CONTAIN,
+        STARTS_WITH,
+        DOES_NOT_START_WITH,
+        ENDS_WITH,
+        DOES_NOT_END_WITH,
+        CONTAINS_INSENSITIVE,
+        DOES_NOT_CONTAIN_INSENSITIVE,
+        STARTS_WITH_INSENSITIVE,
+        DOES_NOT_START_WITH_INSENSITIVE,
+        ENDS_WITH_INSENSITIVE,
+        DOES_NOT_END_WITH_INSENSITIVE
+
+    }
+
+}
