@@ -8,14 +8,14 @@ using JetBrains.Annotations;
 
 namespace Sifter {
 
-    public abstract class SifterServiceService : ISifterService {
+    public abstract class SifterService : ISifterService {
 
         private readonly SifterMap map;
         private readonly TypeTree typeTree;
 
 
 
-        protected SifterServiceService() {
+        protected SifterService() {
             var builder = new SifterBuilder();
             // ReSharper disable once VirtualMemberCallInConstructor
             onSifterBuild(builder);

@@ -38,10 +38,8 @@ namespace Tests {
         [InlineData("-Balance,-Id", "ORDER BY [x].[Balance] DESC, [x].[Id] DESC")]
         [InlineData("-Id,-Balance", "ORDER BY [x].[Id] DESC, [x].[Balance] DESC")]
         [InlineData("-notExisting,notSortable,-Id", "ORDER BY [x].[Id] DESC")]
-        [InlineData("-Id,,,,,,", "ORDER BY [x].[Id] DESC")]
         [InlineData("Id,Id", "ORDER BY [x].[Id]")]
         [InlineData("-Id,Id", "ORDER BY [x].[Id] DESC")]
-        [InlineData(",,,',`,\\,,-Id,,IdId,-Id,Id,df3q213fs__ef_sdé\\114wq4t!$!#@!#42,Id,,,m", "ORDER BY [x].[Id] DESC")]
         [InlineData("SubUserProp", "ORDER BY [x].[SubUserProp]")]
         [InlineData("Inner.Number", "ORDER BY [x.Inner].[Number]")]
         [InlineData("Inner,Inner.Number", "ORDER BY [x.Inner].[Number]")]
@@ -73,6 +71,8 @@ namespace Tests {
         [InlineData("Inner.Brumber")]
         [InlineData("Inner.Inner.Number")]
         [InlineData("id.id")]
+        [InlineData("-Id,,,,,,")]
+        [InlineData(",,,',`,\\,,-Id,,IdId,-Id,Id,df3q213fs__ef_sdé\\114wq4t!$!#@!#42,Id,,,m")]
         public void TestInvalidSorting(string sortInput) {
             var sql = testSorting(sortInput);
 
@@ -83,7 +83,7 @@ namespace Tests {
 
 
         private static string testSorting(string sortInput) {
-            var sifter = new MySifterServiceService();
+            var sifter = new MySifterService();
             var context = new DataContext(new DbContextOptionsBuilder()
                 .UseSqlServer(
                     @"Server=(localdb)\mssqllocaldb;Database=Sifter.Tests;Trusted_Connection=True;ConnectRetryCount=0")
@@ -100,7 +100,7 @@ namespace Tests {
     }
 
 
-    public class MySifterServiceService : SifterServiceService {
+    public class MySifterService : SifterService {
 
         protected override void onSifterBuild(SifterBuilder builder) {
             builder.IndexDbSets<DataContext>();
