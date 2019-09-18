@@ -26,12 +26,13 @@ namespace Sifter {
         [CanBeNull]
         public int? PageSize { get; set; }
 
-        private const string identifierRegex = @"([A-z_]\w*(.[A-z_]\w*)*)";
+        private const string identifierRegex = @"(?:[A-z_]\w*(?:\.[A-z_]\w*)*)";
         private const string operatorRegex = @"(!?[@^$]\*?|[=!]=\*|[=!<>]=|[<>])";
         private const string stringVariableRegex = @"(""([^\\""]|\\.)*""|[\w ]*)";
         private const string numberVariableRegex = @"(-?[0-9]+(\.[0-9]*)?)";
-        private static readonly string sortTermRegex = $"(?'sortTerm'[-]?{identifierRegex})";
-        private static readonly Regex sortRegex = new Regex($"^{sortTermRegex}( *, *{sortTermRegex})*$");
+        private static readonly string sortTermRegex = $"(?'sortTerm'-?{identifierRegex})";
+
+        private static readonly Regex sortRegex = new Regex($@"^{sortTermRegex}( *, *{sortTermRegex})*$");
 
         private static readonly Regex filterTermRegex =
             new Regex($"^{identifierRegex} ?{operatorRegex} ? ({stringVariableRegex}|{numberVariableRegex})$");
@@ -44,16 +45,11 @@ namespace Sifter {
             if (Sort == null) {
                 return new List<SortTerm>();
             }
-            
-            throw new Exception(System.Text.Json.JsonSerializer.Serialize(sortRegex.Matches(Sort).Select(m => m.Value)));
 
-            return sortRegex.Matches(Sort)
-                .Select(m => new SortTerm(m.Value));
-
-            return Sort.Split(',')
-                .Select(s => s.Trim())
-                .Where(s => sortRegex.IsMatch(s))
-                .Select(s => new SortTerm(s));
+            return sortRegex.Match(Sort)
+                .Groups["sortTerm"]
+                .Captures
+                .Select(c => new SortTerm(c.Value));
         }
 
 
