@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "C:\\Users\\pepij\\repos\\Sifter\\Sifter\\Sifter.csproj",
+    "projectUniqueName": "C:\\Users\\Pepijn\\repos\\sifter\\Sifter\\Sifter.csproj",
     "projectName": "Sifter",
-    "projectPath": "C:\\Users\\pepij\\repos\\Sifter\\Sifter\\Sifter.csproj",
-    "outputPath": "C:\\Users\\pepij\\repos\\Sifter\\Sifter\\obj\\",
+    "projectPath": "C:\\Users\\Pepijn\\repos\\sifter\\Sifter\\Sifter.csproj",
+    "outputPath": "C:\\Users\\Pepijn\\repos\\sifter\\Sifter\\obj\\",
     "projectStyle": "PackageReference",
     "fallbackFolders": [
       "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -14,8 +14,7 @@
     ],
     "sources": {
       "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-      "https://api.nuget.org/v3/index.json": {},
-      "https://dotnet.myget.org/F/roslyn/api/v3/index.json": {}
+      "https://api.nuget.org/v3/index.json": {}
     },
     "frameworks": {
       "netcoreapp3.0": {

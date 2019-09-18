@@ -1,35 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af38204b-dab6-405d-a11f-5452fb08fe14" name="Default Changelist" comment="" />
+    <list default="true" id="af38204b-dab6-405d-a11f-5452fb08fe14" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Sifter/SortTerm.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Sifter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sifter/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Sifter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sifter/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/QueryableExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/QueryableExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/SifterModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/SifterModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/SifterService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/SifterService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/bin/Debug/netcoreapp3.0/Sifter.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/bin/Debug/netcoreapp3.0/Sifter.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/bin/Debug/netcoreapp3.0/Sifter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/bin/Debug/netcoreapp3.0/Sifter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/bin/Debug/netcoreapp3.0/Sifter.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/bin/Debug/netcoreapp3.0/Sifter.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/obj/Debug/netcoreapp3.0/Sifter.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/obj/Debug/netcoreapp3.0/Sifter.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/obj/Debug/netcoreapp3.0/Sifter.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/obj/Debug/netcoreapp3.0/Sifter.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/obj/Debug/netcoreapp3.0/Sifter.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/obj/Debug/netcoreapp3.0/Sifter.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/obj/Debug/netcoreapp3.0/Sifter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/obj/Debug/netcoreapp3.0/Sifter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/obj/Debug/netcoreapp3.0/Sifter.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/obj/Debug/netcoreapp3.0/Sifter.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/obj/Sifter.csproj.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/obj/Sifter.csproj.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/obj/Sifter.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/obj/Sifter.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/obj/Sifter.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/obj/Sifter.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sifter/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sifter/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/QueryTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/QueryTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Sifter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Sifter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Sifter.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Sifter.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Tests.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Tests.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Tests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Tests.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Tests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Tests.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Tests.runtimeconfig.dev.json" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Tests.runtimeconfig.dev.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Tests.runtimeconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/bin/Debug/netcoreapp3.0/Tests.runtimeconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/obj/Debug/netcoreapp3.0/Tests.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Debug/netcoreapp3.0/Tests.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/obj/Debug/netcoreapp3.0/Tests.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Debug/netcoreapp3.0/Tests.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/obj/Debug/netcoreapp3.0/Tests.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Debug/netcoreapp3.0/Tests.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/obj/Debug/netcoreapp3.0/Tests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Debug/netcoreapp3.0/Tests.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/obj/Debug/netcoreapp3.0/Tests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Debug/netcoreapp3.0/Tests.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/obj/Tests.csproj.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Tests.csproj.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/obj/Tests.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Tests.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/obj/Tests.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Tests.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/project.packagespec.json" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A5BCB145-F775-493D-9F3A-86E2528C3C50/a6/c62f2a35/BindingFlags.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7B6399B2-A92A-45A9-BF99-9C9E0CB131E0/d7/bd6fc9e7/Expression`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Sifter/SifterBuilder.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/159BF287-7966-4AC6-914C-3CAF595E15C9/d1/aba4a177/DbSet`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Tests/QueryTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sifter/QueryableExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sifter/ISifterService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sifter/SifterInfo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sifter/StringExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sifter/SifterPropertyBuilder.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sifter/SifterMap.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Sifter/SifterService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Sifter/SifterModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/862B9365-843C-4BF1-BA93-210C124BB523/54/2f5d360f/SSL_EXTRA_CERT_CHAIN_POLICY_PARA.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Sifter/StringExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Sifter/ISifterService.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///C# Console" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Tests/QueryTests.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7B6399B2-A92A-45A9-BF99-9C9E0CB131E0/02/cb81aa6f/Expression.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Sifter/SifterInfo.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Sifter/SifterPropertyInfoMap.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Sifter/TypeTree.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Sifter/SifterPropertyBuilder.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Sifter/QueryableExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Sifter/SifterMap.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/38094788-7631-4585-8F71-B5958814A4B8/52/249ad3b8/Queryable.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A5BCB145-F775-493D-9F3A-86E2528C3C50/ae/a4450065/MemberInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A5BCB145-F775-493D-9F3A-86E2528C3C50/23/e50847a7/Int32.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sifter/SifterPropertyInfoMap.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sifter/SifterBuilder.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sifter/SortTerm.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -39,18 +72,18 @@
         <option value="$PROJECT_DIR$/Tests/ControllerMappingTests.cs" />
         <option value="$PROJECT_DIR$/Tests/SifterParseTests.cs" />
         <option value="$PROJECT_DIR$/Tests/SifterModelParseTests.cs" />
-        <option value="$PROJECT_DIR$/Sifter/SifterModel.cs" />
         <option value="$PROJECT_DIR$/Sifter/SifterMapper.cs" />
         <option value="$PROJECT_DIR$/Sifter/SifterEntityBuilder.cs" />
         <option value="$PROJECT_DIR$/Sifter/Sifter.cs" />
         <option value="$PROJECT_DIR$/Sifter/SifterInfo.cs" />
-        <option value="$PROJECT_DIR$/Sifter/QueryableExtensions.cs" />
         <option value="$PROJECT_DIR$/Sifter/SifterMap.cs" />
         <option value="$PROJECT_DIR$/Sifter/SifterBuilder.cs" />
-        <option value="$PROJECT_DIR$/Tests/QueryTests.cs" />
-        <option value="$PROJECT_DIR$/Sifter/SifterService.cs" />
         <option value="$PROJECT_DIR$/Sifter/SifterPropertyInfoMap.cs" />
         <option value="$PROJECT_DIR$/Sifter/SifterPropertyBuilder.cs" />
+        <option value="$PROJECT_DIR$/Sifter/SifterService.cs" />
+        <option value="$PROJECT_DIR$/Tests/QueryTests.cs" />
+        <option value="$PROJECT_DIR$/Sifter/QueryableExtensions.cs" />
+        <option value="$PROJECT_DIR$/Sifter/SifterModel.cs" />
       </list>
     </option>
   </component>
@@ -92,14 +125,29 @@
       <option name="presentableId" value="Default" />
       <updated>1568669852421</updated>
       <workItem from="1568669853666" duration="49807000" />
+      <workItem from="1568760412191" duration="124000" />
+      <workItem from="1568786811259" duration="12767000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
   </component>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
@@ -28,9 +29,17 @@ namespace Sifter {
 
 
         public virtual IQueryable<T> Sift<T>(IQueryable<T> query, SifterModel model) {
-            var sortTerms = model.GetSortTerms();
-            var isNestedSort = false;
+            query = applySortTerms(query, model.GetSortTerms());
 
+            return query;
+        }
+
+
+
+//TODO add option for max sort depth
+//TODO check if circular dependencies work
+        private IQueryable<T> applySortTerms<T>(IQueryable<T> query, IEnumerable<SortTerm> sortTerms) {
+            var isNestedSort = false;
             foreach (var sortTerm in sortTerms) {
                 var identifier = sortTerm.Identifier;
                 var sifterInfo = getSifterInfo<T>(identifier);

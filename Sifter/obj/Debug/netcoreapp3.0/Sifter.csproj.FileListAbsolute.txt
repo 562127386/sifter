@@ -6,3 +6,11 @@ C:\Users\pepij\repos\Sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.AssemblyInfoIn
 C:\Users\pepij\repos\Sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.AssemblyInfo.cs
 C:\Users\pepij\repos\Sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.dll
 C:\Users\pepij\repos\Sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.pdb
+C:\Users\Pepijn\repos\sifter\Sifter\bin\Debug\netcoreapp3.0\Sifter.deps.json
+C:\Users\Pepijn\repos\sifter\Sifter\bin\Debug\netcoreapp3.0\Sifter.dll
+C:\Users\Pepijn\repos\sifter\Sifter\bin\Debug\netcoreapp3.0\Sifter.pdb
+C:\Users\Pepijn\repos\sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.csprojAssemblyReference.cache
+C:\Users\Pepijn\repos\sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.AssemblyInfoInputs.cache
+C:\Users\Pepijn\repos\sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.AssemblyInfo.cs
+C:\Users\Pepijn\repos\sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.dll
+C:\Users\Pepijn\repos\sifter\Sifter\obj\Debug\netcoreapp3.0\Sifter.pdb

@@ -14,6 +14,7 @@ namespace Sifter {
             SortTerm sortTerm,
             bool isNestedSort
         ) {
+            //TODO maybe expression switch this
             var command = sortTerm.IsDescending ? isNestedSort ? "ThenByDescending" : "OrderByDescending" :
                 isNestedSort ? "ThenBy" : "OrderBy";
             var type = typeof(TEntity);

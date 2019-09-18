@@ -20,10 +20,10 @@ namespace Tests {
 
 
 
+        //The tests in this class assume that the name to property mapping is not case sensitive
         public QueryTests(ITestOutputHelper testOutputHelper) {
             this.testOutputHelper = testOutputHelper;
         }
-
 
 
         [Theory]
@@ -47,6 +47,9 @@ namespace Tests {
         [InlineData("Inner,Inner.Number", "ORDER BY [x.Inner].[Number]")]
         [InlineData("Inner.Brumber,Inner.Number", "ORDER BY [x.Inner].[Number]")]
         [InlineData("bAlAnce", "ORDER BY [x].[Balance]")]
+        [InlineData("ID", "ORDER BY [x].[Id]")]
+        [InlineData("id", "ORDER BY [x].[Id]")]
+        [InlineData("iD", "ORDER BY [x].[Id]")]
         public void TestSorting(string sortInput, string expectedOutput) {
             var sql = testSorting(sortInput);
 
@@ -65,13 +68,11 @@ namespace Tests {
         [InlineData(",")]
         [InlineData(",-,,--")]
         [InlineData("--id")]
-        [InlineData("ID")]
-        [InlineData("id")]
-        [InlineData("iD")]
         [InlineData("Inner")]
         [InlineData("Inner.Brumber,")]
         [InlineData("Inner.Brumber")]
         [InlineData("Inner.Inner.Number")]
+        [InlineData("id.id")]
         public void TestInvalidSorting(string sortInput) {
             var sql = testSorting(sortInput);
 
@@ -105,15 +106,15 @@ namespace Tests {
             builder.IndexDbSets<DataContext>();
 
             builder.Properties<User>()
-                .CanSort(u => u.Id)
-                .CanSort(u => u.Balance);
+                .CanFilterAndSort(u => u.Id)
+                .CanFilterAndSort(u => u.Balance);
 
             builder.Properties<SubUser>()
-                .CanSort(s => s.SubUserProp);
+                .CanFilterAndSort(s => s.SubUserProp);
 
             builder.Properties<Inner>()
-                .CanSort(c => c.Id)
-                .CanSort(c => c.Number);
+                .CanFilterAndSort(c => c.Id)
+                .CanFilterAndSort(c => c.Number);
         }
 
     }
