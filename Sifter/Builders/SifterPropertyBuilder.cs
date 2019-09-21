@@ -10,8 +10,6 @@ namespace Sifter.Builders {
 
         internal readonly SifterPropertyInfoMap map = new SifterPropertyInfoMap();
 
-        internal SifterPropertyBuilder() { }
-
 
 
         public ISifterPropertyBuilder<TClass> CanFilter<TProp>(Expression<Func<TClass, TProp>> expression) {
@@ -37,11 +35,14 @@ namespace Sifter.Builders {
 
         private void addToMap<TProp>(Expression<Func<TClass, TProp>> expression, bool canFilter, bool canSort) {
             var propertyInfo = getPropertyInfo(expression);
-            map.Add(propertyInfo.Name.ToLowerInvariant(), new SifterInfo {
-                PropertyInfo = propertyInfo,
-                CanFilter = canFilter,
-                CanSort = canSort
-            });
+            map.Add(
+                propertyInfo.Name.ToLowerInvariant(),
+                new SifterInfo {
+                    PropertyInfo = propertyInfo,
+                    CanFilter = canFilter,
+                    CanSort = canSort
+                }
+            );
         }
 
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Sifter.Builders;
-using Sifter.Extensions;
 using Sifter.Terms;
 using Sifter.Types;
 
@@ -27,34 +26,51 @@ namespace Sifter.Services {
 
 
 
-        protected abstract void onSifterBuild(ISifterBuilder builder);
-
-
-
         public virtual IQueryable<T> Sift<T>(IQueryable<T> query, SifterModel model) {
             query = applySortTerms(query, model.GetSortTerms());
-//            query = applyFilterTerms(query,)
+            query = applyFilterTerms(query, model.GetFilterTerms());
 
             return query;
         }
 
+
+
+        protected abstract void onSifterBuild(ISifterBuilder builder);
+
 //TODO change all internal modifiers to public, and then make classes internal
+
+
 
 //TODO add option for max sort depth
 //TODO check if circular dependencies work
         private IQueryable<T> applySortTerms<T>(IQueryable<T> query, IEnumerable<SortTerm> sortTerms) {
-            var isNestedSort = false;
+            var isSecondarySort = false;
 
             foreach (var sortTerm in sortTerms) {
-                var identifier = sortTerm.Identifier;
-                var sifterInfo = getSifterInfo<T>(identifier);
+                var sifterInfo = getSifterInfo<T>(sortTerm.Identifier);
 
                 if (sifterInfo == null || !sifterInfo.CanSort) {
                     continue;
                 }
 
-                query = sortTerm.ApplySort(query, identifier, sifterInfo.PropertyInfo, isNestedSort);
-                isNestedSort = true;
+                query = sortTerm.ApplySort(query, sifterInfo.PropertyInfo, isSecondarySort);
+                isSecondarySort = true;
+            }
+
+            return query;
+        }
+
+
+
+        private IQueryable<T> applyFilterTerms<T>(IQueryable<T> query, IEnumerable<FilterTerm> filterTerms) {
+            foreach (var filterTerm in filterTerms) {
+                var sifterInfo = getSifterInfo<T>(filterTerm.Identifier);
+
+                if (sifterInfo == null || !sifterInfo.CanFilter) {
+                    continue;
+                }
+
+                query = filterTerm.ApplyFilter(query, sifterInfo.PropertyInfo);
             }
 
             return query;
@@ -64,17 +80,14 @@ namespace Sifter.Services {
 
         [CanBeNull]
         private SifterInfo getSifterInfo<T>(string identifier) {
-            //TODO identifier isn't checked for null here
-            var root = map.Get(typeof(T));
-            var propertyName = identifier;
-
-            if (!identifier.IsNested()) {
+            if (!identifier.Contains('.')) {
                 //TODO search for ToLowerInvariant, and add is as an optional thing
-                return root?.Get(propertyName.ToLowerInvariant());
+                var _root = map.Get(typeof(T));
+                return _root?.Get(identifier.ToLowerInvariant());
             }
 
-            root = map.Get(getNestedClassType<T>(identifier));
-            propertyName = identifier.Split('.').Last();
+            var root = map.Get(getNestedClassType<T>(identifier));
+            var propertyName = identifier.Split('.').Last();
 
             return root?.Get(propertyName.ToLowerInvariant());
         }

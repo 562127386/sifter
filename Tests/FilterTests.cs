@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Sifter;
 using Tests.Helpers;
@@ -24,7 +22,16 @@ namespace Tests {
 
 
         [Theory]
-        [InlineData("balance>0,balance<1.1", "ORDER BY [x].[Balance]")]
+        [InlineData("balance>0", "([x].[Balance] > 0)")]
+        [InlineData("balance>0.1", "([x].[Balance] > 0.1)")]
+        [InlineData("balance>2.1", "([x].[Balance] > 0.1)")]
+        [InlineData("balance>-", "([x].[Balance] > 0.1)")]
+        [InlineData("-balance>-12", "([x].[Balance] > 0.1)")]
+        [InlineData("balance>-12", "([x].[Balance] > -12)")]
+        [InlineData("balance>>-12", "([x].[Balance] > -12)")]
+        [InlineData("balance><-12", "([x].[Balance] > -12)")]
+        [InlineData("balance>true", "([x].[Balance] > -12)")]
+        [InlineData("balance>lmao", "([x].[Balance] > -12)")]
         public void TestFiltering(string filterInput, string expectedOutput) {
             var sql = testFiltering(filterInput);
 

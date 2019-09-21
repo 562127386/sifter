@@ -11,12 +11,15 @@ namespace Sifter.Types {
             TryGetValue(propName, out var value);
             return value;
         }
-        
+
+
+
         internal void MergeWith(SifterPropertyInfoMap from) {
             foreach (var (propName, sifterInfo) in from) {
                 TryAdd(propName, sifterInfo);
             }
         }
+
     }
 
 }

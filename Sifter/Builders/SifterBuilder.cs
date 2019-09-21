@@ -9,10 +9,30 @@ namespace Sifter.Builders {
 
     internal class SifterBuilder : ISifterBuilder {
 
-        private readonly SifterMap sifterMap = new SifterMap();
         private readonly HashSet<Type> indexedTypes = new HashSet<Type>();
 
-        internal SifterBuilder() { }
+        private readonly SifterMap sifterMap = new SifterMap();
+
+
+
+        public void IndexDbSets<T>() where T : class {
+            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly;
+            var properties = typeof(T).GetProperties(bindingFlags);
+            var types = properties.Select(p => p.PropertyType.GenericTypeArguments.First());
+
+            foreach (var type in types) {
+                indexedTypes.Add(type);
+            }
+        }
+
+
+
+        public ISifterPropertyBuilder<T> Properties<T>() {
+            var propertyBuilder = new SifterPropertyBuilder<T>();
+            sifterMap.Add(typeof(T), propertyBuilder.map);
+
+            return propertyBuilder;
+        }
 
 
 
@@ -28,7 +48,8 @@ namespace Sifter.Builders {
             var typeTree = new TypeTree();
 
             foreach (var (type, sifterPropertyInfoMap) in map) {
-                const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy;
+                const BindingFlags bindingFlags =
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy;
                 var properties = type.GetProperties(bindingFlags);
 
                 foreach (var property in properties) {
@@ -65,27 +86,6 @@ namespace Sifter.Builders {
             }
 
             return map;
-        }
-
-
-
-        public void IndexDbSets<T>() where T : class {
-            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly;
-            var properties = typeof(T).GetProperties(bindingFlags);
-            var types = properties.Select(p => p.PropertyType.GenericTypeArguments.First());
-
-            foreach (var type in types) {
-                indexedTypes.Add(type);
-            }
-        }
-
-
-
-        public ISifterPropertyBuilder<T> Properties<T>() {
-            var propertyBuilder = new SifterPropertyBuilder<T>();
-            sifterMap.Add(typeof(T), propertyBuilder.map);
-
-            return propertyBuilder;
         }
 
     }
