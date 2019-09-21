@@ -6,21 +6,21 @@ using System.Reflection;
 namespace Sifter.Terms {
 
     internal class SortTerm {
-        
-        public string Identifier { get;  }
 
-        public bool IsDescending { get; }
+        public string Identifier { get; }
+
+        private readonly bool isDescending;
 
 
 
         public SortTerm(string str) {
             if (str.StartsWith('-')) {
                 Identifier = str.Substring(1);
-                IsDescending = true;
+                isDescending = true;
             }
             else {
                 Identifier = str;
-                IsDescending = false;
+                isDescending = false;
             }
         }
 
@@ -32,7 +32,7 @@ namespace Sifter.Terms {
             bool isSecondarySort
         ) {
             //TODO maybe expression switch this
-            var command = IsDescending ? isSecondarySort ? "ThenByDescending" : "OrderByDescending" :
+            var command = isDescending ? isSecondarySort ? "ThenByDescending" : "OrderByDescending" :
                 isSecondarySort ? "ThenBy" : "OrderBy";
             var type = typeof(TEntity);
             var parameterExpr = Expression.Parameter(type);
@@ -49,7 +49,9 @@ namespace Sifter.Terms {
             );
             return query.Provider.CreateQuery<TEntity>(orderByExpr);
         }
-        
+
+
+
         private static Expression createPropertyExpression(Expression parameterExpr, string identifier) {
             if (!identifier.Contains('.')) {
                 return parameterExpr;

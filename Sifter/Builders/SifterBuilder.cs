@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Sifter.Types;
 
 
@@ -15,7 +16,7 @@ namespace Sifter.Builders {
 
 
 
-        public void IndexDbSets<T>() where T : class {
+        public void IndexDbSets<T>() where T : DbContext {
             const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly;
             var properties = typeof(T).GetProperties(bindingFlags);
             var types = properties.Select(p => p.PropertyType.GenericTypeArguments.First());

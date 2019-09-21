@@ -3,6 +3,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 
@@ -13,80 +16,39 @@ namespace Sifter.Terms {
 
         public string Identifier { get; }
 
-        private static readonly MethodInfo stringEquals =
-            typeof(string).GetMethods().First(m => m.Name == "Equals" && m.GetParameters().Length == 3);
-
-        private static readonly Expression ignoreCaseExpr =
-            Expression.Constant(StringComparison.InvariantCultureIgnoreCase);
-
-        private static readonly Expression caseExpr =
-            Expression.Constant(StringComparison.InvariantCulture);
+        private readonly string op;
+        private readonly string variable;
+        private readonly SimpleType? variableType;
 
 
 
         public FilterTerm(string str) {
             var match = Regexes.FILTER_TERM_REGEX.Match(str);
             Identifier = match.Groups["identifier"].Value;
-            Operator = match.Groups["operator"].Value;
-            Variable = match.Groups["variable"].Value;
+            op = match.Groups["operator"].Value;
+            variable = match.Groups["variable"].Value;
+
+            variableType = match.GetSimpleType();
         }
-
-
-
-        public string Operator { get; }
-
-        public string Variable { get; }
 
 
 
         public IQueryable<T> ApplyFilter<T>(IQueryable<T> query, PropertyInfo propertyInfo) {
             var propertyType = propertyInfo.PropertyType;
 
-            if (!isSimpleType(propertyType)) {
+            if (variableType == null || variableType != propertyType.ToSimpleType()) {
                 return query;
             }
 
             var parameterExpr = Expression.Parameter(typeof(T));
             var propertyExpr = createPropertyExpression(parameterExpr, Identifier);
             var memberAccess = Expression.MakeMemberAccess(propertyExpr, propertyInfo);
-//            var classParamExpr = Expression.Parameter(propertyType.)
-//            var propParamExpr = Expression.Parameter(propertyInfo.PropertyType);
-//            var propertyExpr = createPropertyExpression(propParamExpr, Identifier);
-            var convertedVar = convert(Variable, propertyType);
+            var convertedVar = JsonConvert.DeserializeObject(variable);
             var varExpr = Expression.Constant(convertedVar, convertedVar.GetType());
             var convertedMemberAccess = Expression.Convert(memberAccess, convertedVar.GetType());
             var whereExpr = getExpression(propertyType, convertedMemberAccess, varExpr);
 
-            return query.Where(Expression.Lambda<Func<T, bool>>(whereExpr, parameterExpr));
-        }
-
-
-
-        private static object convert(string variable, Type type) {
-            if (type == typeof(int) && variable.Contains('.')) {
-                type = typeof(float);
-            }
-
-            return JsonConvert.DeserializeObject(variable);
-
-            var converter = TypeDescriptor.GetConverter(type);//convert using json
-
-            if (!converter.CanConvertFrom(typeof(string)) || !converter.CanConvertTo(type)) {
-                throw new InvalidCastException(type.Name);
-
-                //TODO replace with null after confirming that it works
-            }
-
-            return converter.ConvertFromInvariantString(variable);
-        }
-
-
-
-        private static bool isSimpleType(Type type) {
-            return type == typeof(string) ||
-                   type == typeof(decimal) ||
-                   type.IsPrimitive ||
-                   type.IsEnum;
+            return whereExpr == null ? query : query.Where(Expression.Lambda<Func<T, bool>>(whereExpr, parameterExpr));
         }
 
 
@@ -102,29 +64,41 @@ namespace Sifter.Terms {
 
 
 
+        private static readonly MethodInfo likeMethodInfo =
+            typeof(DbFunctionsExtensions).GetMethods().First(m => m.Name == "Like" && m.GetParameters().Length == 3);
+
+        private static readonly Expression efFunctionsExpr = Expression.Constant(EF.Functions);
+
+
+
+        [CanBeNull]
         private Expression getExpression(Type propertyType, Expression propExpr, Expression varExpr) {
-            return Operator switch {
+            return op switch {
                 "==" => Expression.Equal(propExpr, varExpr),
                 "!=" => Expression.NotEqual(propExpr, varExpr),
-                _ => _typeSpecific()
+                _ => _typeSpecificSwitch()
             };
 
 
-            Expression _typeSpecific() {
+            Expression _typeSpecificSwitch() {
                 if (propertyType == typeof(string)) {
-                    return Operator switch {
+                    return op switch {
                         "==*" => Expression.Call(
-                            stringEquals,
+                            likeMethodInfo,
+                            efFunctionsExpr,
                             propExpr,
-                            varExpr,
-                            ignoreCaseExpr
+                            varExpr
                         ),
-                        "!=*" => Expression.Call(
-                            stringEquals,
-                            propExpr,
-                            varExpr,
-                            caseExpr
-                        )
+                        "!=*" => (Expression) Expression.Not(
+                            Expression.Call( //TODO negate expr
+                                likeMethodInfo,
+                                efFunctionsExpr,
+                                propExpr,
+                                varExpr
+                            )
+                        ),
+                        _ => null
+                        //TODO add these
 //                        "@" => Operator.CONTAINS,
 //                        "!@" => Operator.DOES_NOT_CONTAIN,
 //                        "^" => Operator.STARTS_WITH,
@@ -140,22 +114,73 @@ namespace Sifter.Terms {
                     };
                 }
 
-                return Operator switch {
+                return op switch {
                     ">" => Expression.GreaterThan(propExpr, varExpr),
                     "<" => Expression.LessThan(propExpr, varExpr),
                     ">=" => Expression.GreaterThanOrEqual(propExpr, varExpr),
                     "<=" => Expression.LessThanOrEqual(propExpr, varExpr),
-                    _ => _throwException()
+                    _ => null
                 };
-
-
-                Expression _throwException() {
-                    throw new ArgumentException(
-                        $"Invalid operator {Operator} for type {propertyType.Name}",
-                        nameof(Operator)
-                    );
-                }
             }
+        }
+
+    }
+
+
+    internal enum SimpleType {
+
+        STRING,
+        NUMBER,
+        BOOL,
+        ENUM
+
+    }
+
+
+    internal static class VariableTypeExtensions {
+
+        public static SimpleType? GetSimpleType(this Match match) {
+            if (!string.IsNullOrEmpty(match.Groups["string"].Value)) {
+                return SimpleType.STRING;
+            }
+
+            if (!string.IsNullOrEmpty(match.Groups["number"].Value)) {
+                return SimpleType.NUMBER;
+            }
+
+            if (!string.IsNullOrEmpty(match.Groups["bool"].Value)) {
+                return SimpleType.BOOL;
+            }
+
+            if (!string.IsNullOrEmpty(match.Groups["enum"].Value)) {
+                //TODO add support for enum
+                return SimpleType.ENUM;
+            }
+            //TODO add support for Date, DateTime, etc..
+
+            return null;
+        }
+
+
+
+        public static SimpleType? ToSimpleType(this Type type) {
+            if (type == typeof(string)) {
+                return SimpleType.STRING;
+            }
+
+            if (type == typeof(bool)) {
+                return SimpleType.BOOL;
+            }
+
+            if (type.IsPrimitive) {
+                return SimpleType.NUMBER;
+            }
+
+            if (type.IsEnum) {
+                return SimpleType.ENUM;
+            }
+
+            return null;
         }
 
     }

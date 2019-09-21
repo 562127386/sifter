@@ -8,10 +8,13 @@ namespace Sifter {
         private const string identifierRegex = @"(?<identifier>[A-z_]\w*(?:\.[A-z_]\w*)*)";
 
         private const string operatorRegex = @"(?<operator>!?[@^$]\*?|[=!]=\*|[=!<>]=|[<>])";
-        private const string stringVariableRegex = @"(?:""(?:[^\\""]|\\.)*""|[\w ]*)";
-        private const string numberVariableRegex = @"(?:-?[0-9]+(:?\.[0-9]*)?)";
+        private const string stringVariableRegex = @"(?<string>""(?:[^\\""]|\\.)*"")";
+        private const string numberVariableRegex = @"(?<number>-?[0-9]+(:?\.[0-9]*)?)";
+        private const string boolVariableRegex = @"(?<bool>true|false)";
         private static readonly string sortTermRegex = $"(?<sortTerm>-?{identifierRegex})";
-        private static readonly string variableRegex = $"(?<variable>{stringVariableRegex}|{numberVariableRegex})";
+
+        private static readonly string variableRegex =
+            $"(?<variable>{stringVariableRegex}|{numberVariableRegex}|{boolVariableRegex})";
 
         private static readonly string filterTermRegex =
             $"(?<filterTerm>{identifierRegex} *{operatorRegex} *{variableRegex})";

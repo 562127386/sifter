@@ -13,7 +13,7 @@ namespace Tests {
 
 
 
-        //The tests in this class assume that the name to property mapping is not case sensitive
+        //TODO The tests in this class assume that the name to property mapping is not case sensitive
         public SortTests(ITestOutputHelper testOutputHelper) {
             this.testOutputHelper = testOutputHelper;
         }
