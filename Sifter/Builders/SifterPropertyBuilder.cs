@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using Sifter.Types;
+using Sifter.Models;
 
 
 namespace Sifter.Builders {
 
     internal class SifterPropertyBuilder<TClass> : ISifterPropertyBuilder<TClass> {
 
-        internal readonly SifterPropertyInfoMap map = new SifterPropertyInfoMap();
+        public readonly SifterPropertyInfoMap map = new SifterPropertyInfoMap();
 
 
 

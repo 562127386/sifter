@@ -2,10 +2,11 @@
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
+using Sifter.Helpers;
 using Sifter.Terms;
 
 
-namespace Sifter {
+namespace Sifter.Models {
 
     public sealed class SifterModel {
 
@@ -49,11 +50,6 @@ namespace Sifter {
                 return new List<FilterTerm>();
             }
 
-            var g = Regexes.FILTER_REGEX.Match(Filter)
-                .Groups["filterTerm"]
-                .Captures
-                .Select(c => new FilterTerm(c.Value));
-
             return Regexes.FILTER_REGEX.Match(Filter)
                 .Groups["filterTerm"]
                 .Captures
@@ -66,8 +62,6 @@ namespace Sifter {
         internal PaginationTerm GetPaginationTerm() {
             return new PaginationTerm(Page, PageSize);
         }
-
-
 
     }
 

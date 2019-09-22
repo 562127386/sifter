@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Sifter;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
+using Sifter.Models;
 using Tests.Helpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -7,6 +8,7 @@ using Xunit.Abstractions;
 
 namespace Tests {
 
+    [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public class SortTests {
 
         private readonly ITestOutputHelper testOutputHelper;

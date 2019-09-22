@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Sifter.Types {
+namespace Sifter.Models {
 
     internal class TypeTree : Dictionary<(Type, string), Type> { }
 

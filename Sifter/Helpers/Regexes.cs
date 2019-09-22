@@ -1,9 +1,9 @@
 ﻿using System.Text.RegularExpressions;
 
 
-namespace Sifter {
+namespace Sifter.Helpers {
 
-    public static class Regexes {
+    internal static class Regexes {
 
         private const string identifierRegex = @"(?<identifier>[A-z_]\w*(?:\.[A-z_]\w*)*)";
 

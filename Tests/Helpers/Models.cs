@@ -1,4 +1,6 @@
-﻿namespace Tests.Helpers {
+﻿// ReSharper disable All
+
+namespace Tests.Helpers {
 
     public class User {
 

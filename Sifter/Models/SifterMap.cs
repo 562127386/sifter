@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 
 
-namespace Sifter.Types {
+namespace Sifter.Models {
 
     internal class SifterMap : Dictionary<Type, SifterPropertyInfoMap> {
 

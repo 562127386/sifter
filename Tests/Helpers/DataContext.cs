@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 
+// ReSharper disable All
 namespace Tests.Helpers {
 
     public class DataContext : DbContext {

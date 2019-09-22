@@ -1,12 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Sifter.Helpers;
+using Sifter.Models;
 
 
 namespace Sifter.Terms {
@@ -14,7 +14,10 @@ namespace Sifter.Terms {
 //TODO this currently has no support for OR/combining statements, maybe add later
     internal class FilterTerm {
 
-        public string Identifier { get; }
+        private static readonly MethodInfo likeMethodInfo =
+            typeof(DbFunctionsExtensions).GetMethods().First(m => m.Name == "Like" && m.GetParameters().Length == 3);
+
+        private static readonly Expression efFunctionsExpr = Expression.Constant(EF.Functions);
 
         private readonly string op;
         private readonly string variable;
@@ -30,6 +33,10 @@ namespace Sifter.Terms {
 
             variableType = match.GetSimpleType();
         }
+
+
+
+        public string Identifier { get; }
 
 
 
@@ -61,13 +68,6 @@ namespace Sifter.Terms {
             var splits = identifier.Split('.');
             return splits.Aggregate(parameterExpr, Expression.Property);
         }
-
-
-
-        private static readonly MethodInfo likeMethodInfo =
-            typeof(DbFunctionsExtensions).GetMethods().First(m => m.Name == "Like" && m.GetParameters().Length == 3);
-
-        private static readonly Expression efFunctionsExpr = Expression.Constant(EF.Functions);
 
 
 
@@ -122,65 +122,6 @@ namespace Sifter.Terms {
                     _ => null
                 };
             }
-        }
-
-    }
-
-
-    internal enum SimpleType {
-
-        STRING,
-        NUMBER,
-        BOOL,
-        ENUM
-
-    }
-
-
-    internal static class VariableTypeExtensions {
-
-        public static SimpleType? GetSimpleType(this Match match) {
-            if (!string.IsNullOrEmpty(match.Groups["string"].Value)) {
-                return SimpleType.STRING;
-            }
-
-            if (!string.IsNullOrEmpty(match.Groups["number"].Value)) {
-                return SimpleType.NUMBER;
-            }
-
-            if (!string.IsNullOrEmpty(match.Groups["bool"].Value)) {
-                return SimpleType.BOOL;
-            }
-
-            if (!string.IsNullOrEmpty(match.Groups["enum"].Value)) {
-                //TODO add support for enum
-                return SimpleType.ENUM;
-            }
-            //TODO add support for Date, DateTime, etc..
-
-            return null;
-        }
-
-
-
-        public static SimpleType? ToSimpleType(this Type type) {
-            if (type == typeof(string)) {
-                return SimpleType.STRING;
-            }
-
-            if (type == typeof(bool)) {
-                return SimpleType.BOOL;
-            }
-
-            if (type.IsPrimitive) {
-                return SimpleType.NUMBER;
-            }
-
-            if (type.IsEnum) {
-                return SimpleType.ENUM;
-            }
-
-            return null;
         }
 
     }

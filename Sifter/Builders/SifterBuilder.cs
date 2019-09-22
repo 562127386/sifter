@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Sifter.Types;
+using Sifter.Models;
 
 
 namespace Sifter.Builders {
@@ -37,7 +37,7 @@ namespace Sifter.Builders {
 
 
 
-        internal (SifterMap, TypeTree) Build() {
+        public (SifterMap, TypeTree) Build() {
             var map = resolveIndexedTypes();
             var typeTree = SifterBuilder.typeTree(map);
             return (map, typeTree);
@@ -48,7 +48,7 @@ namespace Sifter.Builders {
         private static TypeTree typeTree(SifterMap map) {
             var typeTree = new TypeTree();
 
-            foreach (var (type, sifterPropertyInfoMap) in map) {
+            foreach (var (type, _) in map) {
                 const BindingFlags bindingFlags =
                     BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy;
                 var properties = type.GetProperties(bindingFlags);

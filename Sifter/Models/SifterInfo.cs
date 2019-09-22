@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 
 
-namespace Sifter {
+namespace Sifter.Models {
 
     internal class SifterInfo {
 

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
-using Sifter;
+using Sifter.Models;
 using Tests.Helpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -10,6 +9,7 @@ using Xunit.Abstractions;
 
 namespace Tests {
 
+    [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public class FilterTests {
 
         private readonly ITestOutputHelper testOutputHelper;
@@ -21,7 +21,10 @@ namespace Tests {
             this.testOutputHelper = testOutputHelper;
         }
 
+
+
         //TODO create some dynamic tests, combining different property types with variable types and operators
+
 
 
         [Theory]
@@ -48,7 +51,9 @@ namespace Tests {
             testOutputHelper.WriteLine(sql);
             Assert.EndsWith(expectedOutput, Regex.Replace(sql, "0+1E0", ""));
         }
-        
+
+
+
         [Theory]
         [InlineData("-balance>-12")]
         [InlineData("balance>-")]
@@ -83,7 +88,7 @@ namespace Tests {
 
             var query = context.SubUsers.Include(x => x.Inner);
             var sql = sifter.Sift(query, model).ToSql();
-            return Regex.Replace(sql, "0+1E0", "");//Removes all the trailing zeroes for easier testing and legibility
+            return Regex.Replace(sql, "0+1E0", ""); //Removes all the trailing zeroes for easier testing and legibility
         }
 
     }

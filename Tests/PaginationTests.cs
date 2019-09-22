@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using Sifter;
+using Sifter.Models;
 using Tests.Helpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -10,6 +8,7 @@ using Xunit.Abstractions;
 
 namespace Tests {
 
+    [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public class PaginationTests {
 
         private readonly ITestOutputHelper testOutputHelper;

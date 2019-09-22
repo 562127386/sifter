@@ -7,8 +7,6 @@ namespace Sifter.Terms {
 
     internal class SortTerm {
 
-        public string Identifier { get; }
-
         private readonly bool isDescending;
 
 
@@ -23,6 +21,10 @@ namespace Sifter.Terms {
                 isDescending = false;
             }
         }
+
+
+
+        public string Identifier { get; }
 
 
 

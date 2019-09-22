@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Sifter.Builders;
+using Sifter.Models;
 using Sifter.Terms;
-using Sifter.Types;
 
 
 namespace Sifter.Services {
@@ -26,7 +26,7 @@ namespace Sifter.Services {
 
 
 
-        public virtual IQueryable<T> Sift<T>(IQueryable<T> query, SifterModel model) {
+        public IQueryable<T> Sift<T>(IQueryable<T> query, SifterModel model) {
             query = applySortTerms(query, model.GetSortTerms());
             query = applyFilterTerms(query, model.GetFilterTerms());
             query = model.GetPaginationTerm().ApplyPagination(query);
