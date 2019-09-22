@@ -19,18 +19,18 @@ namespace Sifter {
 
         [FromQuery]
         [CanBeNull]
-        public int? Page { get; set; }
+        public string Page { get; set; }
 
         [FromQuery]
         [CanBeNull]
-        public int? PageSize { get; set; }
+        public string PageSize { get; set; }
 
 
 
         [NotNull]
         [ItemNotNull]
         internal IEnumerable<SortTerm> GetSortTerms() {
-            if (Sort == null) {
+            if (string.IsNullOrEmpty(Sort)) {
                 return new List<SortTerm>();
             }
 
@@ -45,7 +45,7 @@ namespace Sifter {
         [NotNull]
         [ItemNotNull]
         internal IEnumerable<FilterTerm> GetFilterTerms() {
-            if (Filter == null) {
+            if (string.IsNullOrEmpty(Filter)) {
                 return new List<FilterTerm>();
             }
 
@@ -59,6 +59,15 @@ namespace Sifter {
                 .Captures
                 .Select(c => new FilterTerm(c.Value));
         }
+
+
+
+        [NotNull]
+        internal PaginationTerm GetPaginationTerm() {
+            return new PaginationTerm(Page, PageSize);
+        }
+
+
 
     }
 

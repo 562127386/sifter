@@ -29,6 +29,7 @@ namespace Sifter.Services {
         public virtual IQueryable<T> Sift<T>(IQueryable<T> query, SifterModel model) {
             query = applySortTerms(query, model.GetSortTerms());
             query = applyFilterTerms(query, model.GetFilterTerms());
+            query = model.GetPaginationTerm().ApplyPagination(query);
 
             return query;
         }
