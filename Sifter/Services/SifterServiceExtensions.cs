@@ -5,6 +5,9 @@ using Sifter.Models;
 
 namespace Sifter.Services {
 
+    
+    //TODO add extension method for registering the service to the container
+    
     [PublicAPI]
     public static class SifterServiceExtensions {
 

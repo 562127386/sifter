@@ -53,11 +53,16 @@ namespace Sifter.Builders {
             var propInfo = memberExpression?.Member as PropertyInfo;
 
             if (propInfo == null || propInfo.DeclaringType == null) {
-                throw new Exception(); //TODO throw more specific error
+                throw new ArgumentException(
+                    $"{nameof(propInfo)} == {propInfo} and {nameof(propInfo.DeclaringType)} == {propInfo?.DeclaringType}"
+                );
             }
 
             if (classType != propInfo.DeclaringType && !propInfo.DeclaringType.IsAssignableFrom(classType)) {
-                throw new Exception();
+                //TODO add support for lists
+                throw new InvalidOperationException(
+                    $"{classType.Name} cannot be assigned from {propInfo.DeclaringType.Name}"
+                );
             }
 
             return propInfo;
