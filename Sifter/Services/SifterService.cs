@@ -82,15 +82,14 @@ namespace Sifter.Services {
         [CanBeNull]
         private SifterInfo getSifterInfo<T>(string identifier) {
             if (!identifier.Contains('.')) {
-                //TODO search for ToLowerInvariant in the code, and add is as an optional thing
                 var _root = map.Get(typeof(T));
-                return _root?.Get(identifier.ToLowerInvariant());
+                return _root?.Get(identifier.ApplyCaseSensitivity());
             }
 
             var root = map.Get(getNestedClassType<T>(identifier));
             var propertyName = identifier.Split('.').Last();
 
-            return root?.Get(propertyName.ToLowerInvariant());
+            return root?.Get(propertyName.ApplyCaseSensitivity());
         }
 
 

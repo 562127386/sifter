@@ -15,7 +15,7 @@ namespace Tests {
 
 
 
-        //TODO The tests in this class assume that the name to property mapping is not case sensitive, and that the default page size is 25
+        //TODO The tests in this class assume that the name to property mapping is not case sensitive, that the default page size is 25, and that the max page is 100
         //TODO this does not yet test min/max page size
         public PaginationTests(ITestOutputHelper testOutputHelper) {
             this.testOutputHelper = testOutputHelper;
@@ -26,9 +26,9 @@ namespace Tests {
         [Theory]
         [InlineData("-1", "1", "SELECT TOP(1)")]
         [InlineData("-1", "-1", "SELECT TOP(1)")]
-        [InlineData("1", "200", "SELECT TOP(200)")]
-        [InlineData("-1", "200", "SELECT TOP(200)")]
-        [InlineData("2.3", "200", "SELECT TOP(200)")]
+        [InlineData("1", "200", "SELECT TOP(100)")]
+        [InlineData("-1", "200", "SELECT TOP(100)")]
+        [InlineData("2.3", "200", "SELECT TOP(100)")]
         [InlineData("-", "0", "SELECT TOP(1)")]
         [InlineData("1", "1", "SELECT TOP(1)")]
         [InlineData("1", "2", "SELECT TOP(2)")]

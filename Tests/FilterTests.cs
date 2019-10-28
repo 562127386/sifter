@@ -45,6 +45,11 @@ namespace Tests {
         [InlineData("steamid ==\"lmao\"", "([x].[SteamId] = N'lmao')")]
         [InlineData("steamid !=*\"lmao\"", "NOT ([x].[SteamId] LIKE N'lmao')")]
         [InlineData("steamid ==*\"lmao\"", "[x].[SteamId] LIKE N'lmao'")]
+        [InlineData("steamid @\"lmao\"", "[x].[SteamId] LIKE N'%lmao%'")]
+        [InlineData("steamid !@\"lmao\"", "NOT ([x].[SteamId] LIKE N'%lmao%')")]
+        //TODO check whether like is actually case insensitive in mysql
+        //TODO use ILIKE for case insensitive queries in postgres
+        //TODO is it possible to do case sensitive contains (LIKE) query is mysql?
         public void TestFiltering(string filterInput, string expectedOutput) {
             var sql = testFiltering(filterInput);
 

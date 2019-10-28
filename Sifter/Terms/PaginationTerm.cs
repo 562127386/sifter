@@ -13,8 +13,13 @@ namespace Sifter.Terms {
 
         public PaginationTerm(string pageStr, string pageSizeStr) {
             page = int.TryParse(pageStr, out var pageVal) ? Math.Max(pageVal, 1) : 1;
-            //TODO create options for default and max page size
-            pageSize = int.TryParse(pageSizeStr, out var pageSizeVal) ? Math.Max(pageSizeVal, 1) : 25;
+
+            pageSize = Math.Min(
+                int.TryParse(pageSizeStr, out var pageSizeVal)
+                    ? Math.Max(pageSizeVal, 1)
+                    : Constants.DEFAULT_PAGE_SIZE,
+                Constants.MAX_PAGE_SIZE
+            );
         }
 
 

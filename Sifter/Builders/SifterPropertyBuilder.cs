@@ -36,7 +36,7 @@ namespace Sifter.Builders {
         private void addToMap<TProp>(Expression<Func<TClass, TProp>> expression, bool canFilter, bool canSort) {
             var propertyInfo = getPropertyInfo(expression);
             map.Add(
-                propertyInfo.Name.ToLowerInvariant(),
+                propertyInfo.Name.ApplyCaseSensitivity(),
                 new SifterInfo {
                     PropertyInfo = propertyInfo,
                     CanFilter = canFilter,
@@ -45,8 +45,12 @@ namespace Sifter.Builders {
             );
         }
 
+
+
 //TODO nested filtering doesnt work
 //TODO make a Trello board for all these todos
+
+
 
         private static PropertyInfo getPropertyInfo<TProp>(Expression<Func<TClass, TProp>> expression) {
             var classType = typeof(TClass);

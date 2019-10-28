@@ -90,17 +90,30 @@ namespace Sifter.Terms {
                             varExpr
                         ),
                         "!=*" => (Expression) Expression.Not(
-                            Expression.Call( //TODO negate expr
+                            Expression.Call(
                                 likeMethodInfo,
                                 efFunctionsExpr,
                                 propExpr,
                                 varExpr
                             )
                         ),
+                        "@" => Expression.Call(
+                            likeMethodInfo,
+                            efFunctionsExpr,
+                            propExpr,
+                            Expression.Constant("%" + varExpr.ToString().Replace("\"", "") + "%", typeof(string))
+                            //Because varExpr is a string expression (lke so: "string") we need do replace its quotes
+                        ),
+                        "!@" => Expression.Not(
+                            Expression.Call(
+                                likeMethodInfo,
+                                efFunctionsExpr,
+                                propExpr,
+                                Expression.Constant("%" + varExpr.ToString().Replace("\"", "") + "%", typeof(string))
+                            )
+                        ),
                         _ => null
                         //TODO add these
-//                        "@" => Operator.CONTAINS,
-//                        "!@" => Operator.DOES_NOT_CONTAIN,
 //                        "^" => Operator.STARTS_WITH,
 //                        "!^" => Operator.DOES_NOT_START_WITH,
 //                        "$" => Operator.ENDS_WITH,
